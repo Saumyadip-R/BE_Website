@@ -6,10 +6,9 @@
 }
 
 body {
-    font-family: 'Roboto', Arial, sans-serif;
+    font-family: Arial, sans-serif;
     background-color: #f9f9f9;
     color: #333;
-    line-height: 1.6;
     scroll-behavior: smooth;
 }
 
@@ -79,19 +78,20 @@ body {
 /* Main Content */
 .content {
     margin: 20px;
-    text-align: center;
 }
 
-.content h1 {
-    font-size: 36px;
+.content section {
+    margin: 40px 0;
+}
+
+.content h1, .content h2 {
     color: #4a90e2;
-    margin-bottom: 20px;
 }
 
 .content p {
     font-size: 18px;
     color: #555;
-    margin-bottom: 20px;
+    margin: 10px 0;
 }
 
 /* Footer */
@@ -100,7 +100,9 @@ body {
     color: white;
     text-align: center;
     padding: 20px;
-    margin-top: auto;
+    position: relative;
+    bottom: 0;
+    width: 100%;
 }
 
 .footer a {
@@ -111,40 +113,4 @@ body {
 
 .footer a:hover {
     text-decoration: underline;
-}
-
-/* Buttons (Optional) */
-button {
-    background: linear-gradient(90deg, #4a90e2, #50c878);
-    border: none;
-    color: white;
-    padding: 10px 20px;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background 0.3s ease, transform 0.2s ease;
-}
-
-button:hover {
-    background: linear-gradient(90deg, #50c878, #4a90e2);
-    transform: scale(1.05);
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    .navbar .title {
-        font-size: 18px;
-    }
-
-    .sidebar {
-        width: 200px;
-    }
-
-    .content h1 {
-        font-size: 28px;
-    }
-
-    .content p {
-        font-size: 16px;
-    }
 }
