@@ -17,7 +17,7 @@ body {
 
 /* Game Container */
 .game-container {
-    position: relative;
+    position: relative; /* Required for absolute positioning of child elements */
     width: 400px;
     height: 600px;
     border: 2px solid #4a90e2;
@@ -27,24 +27,24 @@ body {
 
 /* Basket */
 #basket {
-    position: absolute;
+    position: absolute; /* Allows movement within the container */
     bottom: 10px;
     width: 80px;
     height: 20px;
     background-color: #4a90e2;
     border-radius: 10px;
-    left: 160px; /* Centered initially */
+    left: 160px; /* Initial position */
 }
 
 /* Falling Object */
 #falling-object {
-    position: absolute;
+    position: absolute; /* Allows movement within the container */
     width: 20px;
     height: 20px;
     background-color: #50c878;
     border-radius: 50%;
     top: 0;
-    left: 190px; /* Starts near the center */
+    left: 190px; /* Initial position */
 }
 
 /* Scoreboard */
