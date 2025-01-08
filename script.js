@@ -1,3 +1,10 @@
+// Sidebar toggle logic
+function toggleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    sidebar.classList.toggle("active");
+}
+
+// Game logic for "Catch the Falling Object"
 const basket = document.getElementById("basket");
 const fallingObject = document.getElementById("falling-object");
 const scoreboard = document.getElementById("scoreboard");
@@ -26,7 +33,7 @@ function updateFallingObject() {
     // If the object reaches the bottom
     if (objectY > gameHeight) {
         objectY = 0; // Reset to the top
-        objectX = Math.random() * 380; // Random new position
+        objectX = Math.random() * (gameWidth - 20); // Random new position
     }
 
     // Check collision
@@ -37,7 +44,7 @@ function updateFallingObject() {
     ) {
         score++;
         objectY = 0; // Reset to the top
-        objectX = Math.random() * 380; // Random new position
+        objectX = Math.random() * (gameWidth - 20); // Random new position
         scoreboard.textContent = `Score: ${score}`;
     }
 
@@ -51,5 +58,5 @@ function gameLoop() {
     requestAnimationFrame(gameLoop); // Keep the game running
 }
 
-// Start the game
+// Start the game loop
 gameLoop();
