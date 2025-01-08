@@ -6,13 +6,55 @@ const gameContainer = document.querySelector(".game-container");
 
 let score = 0;
 let lives = 10; // Start with 10 lives
+let playerName = "";
 let level = 1;
 let basketPosition = 160; // Initial basket position
 let fallingObjects = [];
 const gameWidth = 400; // Width of the game container
 const gameHeight = 600; // Height of the game container
 let fallingSpeed = 2; // Initial falling speed
-let isDragging = false; // Tracks mouse dragging state
+let isDragging = false;
+let leaderboardData = []; // Holds top 3 scores
+
+// Prompt for player name
+function getPlayerName() {
+    playerName = prompt("Enter your name:");
+    if (!playerName) {
+        playerName = "Anonymous";
+    }
+    document.getElementById("player-name").textContent = `Player: ${playerName}`;
+}
+
+// Update leaderboard
+function updateLeaderboard() {
+    leaderboardData.push({ name: playerName, score });
+    leaderboardData.sort((a, b) => b.score - a.score);
+    leaderboardData = leaderboardData.slice(0, 3); // Keep top 3
+
+    leaderboard.innerHTML = "";
+    leaderboardData.forEach((entry, index) => {
+        const li = document.createElement("li");
+        li.textContent = `${index + 1}. ${entry.name} - ${entry.score}`;
+        leaderboard.appendChild(li);
+    });
+}
+
+// End the game
+function endGame() {
+    gameOverMessage.classList.remove("hidden");
+    updateLeaderboard();
+    fallingObjects.forEach((object) => gameContainer.removeChild(object));
+    fallingObjects = [];
+}
+// Update basket position on touch move
+gameContainer.addEventListener("touchmove", (event) => {
+    const touch = event.touches[0];
+    const containerRect = gameContainer.getBoundingClientRect();
+    const touchX = touch.clientX - containerRect.left;
+    basketPosition = Math.max(0, Math.min(touchX - 40, gameWidth - 80));
+    basket.style.left = `${basketPosition}px`;
+    event.preventDefault(); // Prevent browser scrolling
+});
 
 // Create multiple falling objects
 function createFallingObject() {
@@ -32,24 +74,6 @@ document.addEventListener("keydown", (event) => {
         basketPosition += 30;
     }
     basket.style.left = `${basketPosition}px`;
-});
-
-// Enable dragging the basket with the mouse
-basket.addEventListener("mousedown", () => {
-    isDragging = true;
-});
-
-document.addEventListener("mousemove", (event) => {
-    if (isDragging) {
-        const containerRect = gameContainer.getBoundingClientRect();
-        const mouseX = event.clientX - containerRect.left; // Mouse position relative to the container
-        basketPosition = Math.max(0, Math.min(mouseX - 40, gameWidth - 80)); // Keep basket within bounds
-        basket.style.left = `${basketPosition}px`;
-    }
-});
-
-document.addEventListener("mouseup", () => {
-    isDragging = false;
 });
 
 // Update falling objects
