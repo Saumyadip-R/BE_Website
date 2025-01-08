@@ -114,3 +114,55 @@ body {
 .footer a:hover {
     text-decoration: underline;
 }
+
+{
+    font-family: Arial, sans-serif;
+    background-color: #f0f8ff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* Game Container */
+.game-container {
+    position: relative;
+    width: 400px;
+    height: 600px;
+    border: 2px solid #4a90e2;
+    background-color: #fff;
+    overflow: hidden;
+}
+
+/* Basket */
+#basket {
+    position: absolute;
+    bottom: 10px;
+    width: 80px;
+    height: 20px;
+    background-color: #4a90e2;
+    border-radius: 10px;
+    left: 160px; /* Centered initially */
+}
+
+/* Falling Object */
+#falling-object {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background-color: #50c878;
+    border-radius: 50%;
+    top: 0;
+    left: 190px; /* Starts near the center */
+}
+
+/* Scoreboard */
+#scoreboard {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #333;
+}
