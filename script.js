@@ -12,6 +12,7 @@ let fallingObjects = [];
 const gameWidth = 400;
 const gameHeight = 600;
 let fallingSpeed = 2;
+let isDragging = false;
 
 // Create multiple falling objects
 function createFallingObject() {
@@ -31,6 +32,24 @@ document.addEventListener("keydown", (event) => {
         basketPosition += 30;
     }
     basket.style.left = `${basketPosition}px`;
+});
+
+// Enable dragging the basket with the mouse
+basket.addEventListener("mousedown", (event) => {
+    isDragging = true;
+});
+
+document.addEventListener("mousemove", (event) => {
+    if (isDragging) {
+        const containerRect = gameContainer.getBoundingClientRect();
+        const mouseX = event.clientX - containerRect.left;
+        basketPosition = Math.max(0, Math.min(mouseX - 40, gameWidth - 80)); // Keep basket within bounds
+        basket.style.left = `${basketPosition}px`;
+    }
+});
+
+document.addEventListener("mouseup", () => {
+    isDragging = false;
 });
 
 // Update falling objects
