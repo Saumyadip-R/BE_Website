@@ -16,19 +16,22 @@ let objectY = 0; // Starting Y position of the falling object
 const gameHeight = 600;
 const gameWidth = 400;
 
+const fallingSpeed = 2; // Slower falling speed
+const basketSpeed = 30; // Increase basket sensitivity
+
 // Move the basket using arrow keys
 document.addEventListener("keydown", (event) => {
     if (event.key === "ArrowLeft" && basketPosition > 0) {
-        basketPosition -= 20; // Move left
+        basketPosition -= basketSpeed; // Move left faster
     } else if (event.key === "ArrowRight" && basketPosition < gameWidth - 80) {
-        basketPosition += 20; // Move right
+        basketPosition += basketSpeed; // Move right faster
     }
     basket.style.left = `${basketPosition}px`;
 });
 
 // Update the falling object position
 function updateFallingObject() {
-    objectY += 5; // Falling speed
+    objectY += fallingSpeed; // Slower falling speed
 
     // If the object reaches the bottom
     if (objectY > gameHeight) {
