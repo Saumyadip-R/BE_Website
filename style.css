@@ -17,34 +17,33 @@ body {
 
 /* Game Container */
 .game-container {
-    position: relative; /* Required for absolute positioning of child elements */
+    position: relative;
     width: 400px;
     height: 600px;
     border: 2px solid #4a90e2;
     background-color: #fff;
     overflow: hidden;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
 }
 
 /* Basket */
 #basket {
-    position: absolute; /* Allows movement within the container */
+    position: absolute;
     bottom: 10px;
     width: 80px;
     height: 20px;
     background-color: #4a90e2;
     border-radius: 10px;
-    left: 160px; /* Initial position */
+    left: 160px;
 }
 
-/* Falling Object */
-#falling-object {
-    position: absolute; /* Allows movement within the container */
+/* Falling Objects */
+.falling-object {
+    position: absolute;
     width: 20px;
     height: 20px;
     background-color: #50c878;
     border-radius: 50%;
-    top: 0;
-    left: 190px; /* Initial position */
 }
 
 /* Scoreboard */
@@ -55,4 +54,30 @@ body {
     font-size: 20px;
     font-weight: bold;
     color: #333;
+}
+
+/* Lives */
+#lives {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #e74c3c;
+}
+
+/* Game Over Message */
+#game-over {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    color: #e74c3c;
+    font-weight: bold;
+    text-align: center;
+}
+
+.hidden {
+    display: none;
 }
