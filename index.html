@@ -2,21 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Saumyadip's game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Falling Objects Game</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-     <h3 style="text-align: center">
-      Let's see if you can beat Saumyadip in his game!
-      </h3>
     <div class="game-container">
         <div id="basket"></div>
-        <div id="falling-objects"></div>
         <div id="scoreboard">Score: 0</div>
-        <div id="lives">Lives: 3</div>
-        <div id="game-over" class="hidden">Game Over! Press F5 to Restart</div>
+        <div id="lives">Lives: 10</div>
+        <div id="game-over" class="hidden">Game Over!</div>
+        <div id="player-name" class="hidden"></div>
     </div>
+
+    <div class="dashboard">
+        <h2>Top 3 Scorers</h2>
+        <ol id="leaderboard">
+            <li>No scores yet</li>
+        </ol>
+    </div>
+
+    <footer class="developer">
+        <div class="developer-info">
+            <h3>Game developed by Saumyadip Rajguru</h3>
+            <p>Thank you for playing!</p>
+        </div>
+    </footer>
+
     <script src="script.js"></script>
 </body>
 </html>
