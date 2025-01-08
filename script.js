@@ -1,10 +1,3 @@
-// Sidebar toggle logic
-function toggleSidebar() {
-    const sidebar = document.getElementById("sidebar");
-    sidebar.classList.toggle("active");
-}
-
-// Game logic for "Catch the Falling Object"
 const basket = document.getElementById("basket");
 const fallingObject = document.getElementById("falling-object");
 const scoreboard = document.getElementById("scoreboard");
@@ -58,5 +51,5 @@ function gameLoop() {
     requestAnimationFrame(gameLoop); // Keep the game running
 }
 
-// Start the game loop
+// Start the game
 gameLoop();
