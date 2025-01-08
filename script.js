@@ -1,65 +1,98 @@
-// Sidebar toggle logic
-function toggleSidebar() {
-    const sidebar = document.getElementById("sidebar");
-    sidebar.classList.toggle("active");
-}
-
-// Game logic for "Catch the Falling Object"
 const basket = document.getElementById("basket");
-const fallingObject = document.getElementById("falling-object");
 const scoreboard = document.getElementById("scoreboard");
+const livesDisplay = document.getElementById("lives");
+const gameOverMessage = document.getElementById("game-over");
+const gameContainer = document.querySelector(".game-container");
 
 let score = 0;
-let basketPosition = 160; // Starting position of the basket
-let objectX = Math.random() * 380; // Random starting position for the object
-let objectY = 0; // Starting Y position of the falling object
-const gameHeight = 600;
+let lives = 3;
+let level = 1;
+let basketPosition = 160;
+let fallingObjects = [];
 const gameWidth = 400;
+const gameHeight = 600;
+let fallingSpeed = 2;
 
-const fallingSpeed = 2; // Slower falling speed
-const basketSpeed = 30; // Increase basket sensitivity
+// Create multiple falling objects
+function createFallingObject() {
+    const fallingObject = document.createElement("div");
+    fallingObject.classList.add("falling-object");
+    fallingObject.style.left = `${Math.random() * (gameWidth - 20)}px`;
+    fallingObject.style.top = "0px";
+    gameContainer.appendChild(fallingObject);
+    fallingObjects.push(fallingObject);
+}
 
 // Move the basket using arrow keys
 document.addEventListener("keydown", (event) => {
     if (event.key === "ArrowLeft" && basketPosition > 0) {
-        basketPosition -= basketSpeed; // Move left faster
+        basketPosition -= 30; // Increase sensitivity
     } else if (event.key === "ArrowRight" && basketPosition < gameWidth - 80) {
-        basketPosition += basketSpeed; // Move right faster
+        basketPosition += 30;
     }
     basket.style.left = `${basketPosition}px`;
 });
 
-// Update the falling object position
-function updateFallingObject() {
-    objectY += fallingSpeed; // Slower falling speed
+// Update falling objects
+function updateFallingObjects() {
+    fallingObjects.forEach((object, index) => {
+        const currentTop = parseInt(object.style.top);
+        object.style.top = `${currentTop + fallingSpeed}px`;
 
-    // If the object reaches the bottom
-    if (objectY > gameHeight) {
-        objectY = 0; // Reset to the top
-        objectX = Math.random() * (gameWidth - 20); // Random new position
-    }
+        // Check if object reaches the bottom
+        if (currentTop + 20 >= gameHeight) {
+            lives -= 1; // Decrease lives
+            livesDisplay.textContent = `Lives: ${lives}`;
+            gameContainer.removeChild(object);
+            fallingObjects.splice(index, 1);
+            if (lives === 0) {
+                endGame();
+            }
+        }
 
-    // Check collision
-    if (
-        objectY > 580 && // Close to the basket
-        objectX > basketPosition - 20 && // Align horizontally with the basket
-        objectX < basketPosition + 80 // Align horizontally with the basket
-    ) {
-        score++;
-        objectY = 0; // Reset to the top
-        objectX = Math.random() * (gameWidth - 20); // Random new position
-        scoreboard.textContent = `Score: ${score}`;
-    }
-
-    fallingObject.style.top = `${objectY}px`;
-    fallingObject.style.left = `${objectX}px`;
+        // Check for collision with basket
+        const objectLeft = parseInt(object.style.left);
+        if (
+            currentTop + 20 >= 580 &&
+            objectLeft > basketPosition - 20 &&
+            objectLeft < basketPosition + 80
+        ) {
+            score += 10 * level; // Score increases with level
+            scoreboard.textContent = `Score: ${score}`;
+            gameContainer.removeChild(object);
+            fallingObjects.splice(index, 1);
+        }
+    });
 }
 
 // Game loop
 function gameLoop() {
-    updateFallingObject();
-    requestAnimationFrame(gameLoop); // Keep the game running
+    if (Math.random() < 0.02 * level) {
+        createFallingObject();
+    }
+    updateFallingObjects();
+    if (lives > 0) {
+        requestAnimationFrame(gameLoop);
+    }
 }
 
-// Start the game loop
+// End the game
+function endGame() {
+    gameOverMessage.classList.remove("hidden");
+    fallingObjects.forEach((object) => gameContainer.removeChild(object));
+    fallingObjects = [];
+}
+
+// Increase difficulty over time
+function increaseDifficulty() {
+    setInterval(() => {
+        if (lives > 0) {
+            level++;
+            fallingSpeed += 0.5;
+        }
+    }, 10000);
+}
+
+// Start the game
 gameLoop();
+increaseDifficulty();
